@@ -77,7 +77,7 @@ Product {
   float product_price
   int product_pao_months
   string product_application_method
-  int product_volume
+  string product_volume
 }
 Order {
   int order_id PK
@@ -105,7 +105,7 @@ Customer {
 Brand ||--o{ Product : "has"
 Category ||--o{ Product : "contains"
 Customer ||--o{ Order : "has"
-Order ||--o{ "Order Item" : "contains"
+Order ||--|{ "Order Item" : "contains"
 Product ||--o{ "Order Item" : "belongs"
 ```
 
