@@ -18,7 +18,7 @@
 ### Brand (бренд):
 -	brand_id – унікальний ідентифікатор бренду (primary key)
 -	brand_title – назва бренду
-  Category (категорія):
+### Category (категорія):
 -	category_id – унікальний ідентифікатор категорії (primary key)
 -	category_title – назва категорії
   
