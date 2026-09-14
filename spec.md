@@ -78,6 +78,29 @@ Product {
   string product_application_method
   int product_volume
 }
+Order {
+  int order_id PK
+  int customer_id FK
+  datetime order_date
+  float order_price
+  string order_delivery_address
+  string order_status
+}
+Customer {
+  int customer_id PK
+  string customer_first_name
+  string customer_last_name
+  datetime customer_birth_date
+  string customer_phone_number
+  string customer_email
+}
+Order Item {
+  int order_item_id PK
+  int product_id FK
+  int order_id FK
+  int order_item_quantity
+  float order_item_price
+}
 
 
 
