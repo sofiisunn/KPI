@@ -94,7 +94,7 @@ Customer {
   string customer_phone_number
   string customer_email
 }
-Order Item {
+"Order Item" {
   int order_item_id PK
   int product_id FK
   int order_id FK
