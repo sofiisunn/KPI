@@ -58,4 +58,26 @@
 - Обов’язкова авторизація для покупок: Оформлення замовлення дозволяється лише для зареєстрованих користувачів. Клієнти без аккаунту мають автоматично перенаправлятися на сторінку входу в аккаунт чи реєстрації.
 - Оформлення замовлення: Запит на те, щоб оформити замовлення відхиляється системою, якщо в кошику користувача немає щонайменше одного товару.
 - Обов'язкова адреса: Оформити замовлення неможливо без вказання адреси доставки.
+```mermaid
+erDiagram
+Brand {
+  int brand_id PK
+  string brand_title
+}
+Category {
+  int category_id PK
+  string category_title
+}
+Product {
+  int product_id PK
+  int brand_id FK
+  int category_id FK
+  string product_title
+  float product_price
+  int product_pao_months
+  string product_application_method
+  int product_volume
+}
+
+
 
