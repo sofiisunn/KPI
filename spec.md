@@ -101,6 +101,12 @@ Customer {
   int order_item_quantity
   float order_item_price
 }
+Brand ||--o{ Product : "has"
+Category ||--o{ Product : "contains"
+Customer ||--o{ Order : "has"
+Order ||--o{ "Order Item" : "contains"
+Product ||--o{ "Order Item" : "belongs"
+```
 
 
 
