@@ -104,7 +104,7 @@ Customer {
   float order_item_price
 }
 Brand ||--o{ Product : "has"
-Category }o--|{ Product : "contains"
+Category }|--o{ Product : "contains"
 Customer ||--o{ Order : "has"
 Order ||--|{ "Order Item" : "contains"
 Product ||--o{ "Order Item" : "belongs"
