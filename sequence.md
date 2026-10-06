@@ -1,3 +1,4 @@
+```mermaid
 sequenceDiagram
     actor Customer as Клієнт
     participant CheckoutPage as Сторінка замовлення
@@ -11,3 +12,4 @@ sequenceDiagram
     OrderController->>Database: Зчитування особистих даних клієнта
     Database-->>OrderController: Повернення (ім'я, прізвище, дата народження, телефон, електронна пошта)
     OrderController-->>CheckoutPage: Заповнені дані профілю клієнта
+```
