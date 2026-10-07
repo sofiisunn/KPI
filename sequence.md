@@ -22,4 +22,19 @@ sequenceDiagram
     OrderController->>Database: createOrderRecord()
     Database-->>OrderController: Замовлення успішно створено (order_id)
     OrderController->>Database: recordItemsPrice()
+
+    alt Оплата успішна
+        PaymentService-->>OrderController: Повернення статусу (PaymentSuccess)
+        PaymentService->>Database: updateOrderStatus("Paid")
+        
+        OrderController->>DeliveryService: registerShipment(order_id)
+        DeliveryService-->>OrderController: Повернення (tracking_number)
+        OrderController->>Database: Запис трек-номера в таблицю Order
+        OrderController-->>CheckoutPage: Повідомлення про успішне замовлення
+
+    else Недостатньо коштів на картці
+        PaymentService-->>OrderController: Повернення статусу (PaymentFailed)
+        OrderController->>Database: cancelOrderRecord()
+        OrderController-->>CheckoutPage: Повідомлення: "Помилка оплати"
+    end
 ```
