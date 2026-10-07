@@ -16,8 +16,8 @@ sequenceDiagram
     Customer->>CheckoutPage: Вносить адресу доставки та підтверджує замовлення
     CheckoutPage->>OrderController: submitOrder(customer_id, delivery_address)
     
-    OrderController->>PaymentService: processPayment(order_id, order_price)
     OrderController->>OrderController: validateAddress()
+    OrderController->>PaymentService: processPayment(order_id, order_price)
     
     OrderController->>Database: createOrderRecord()
     Database-->>OrderController: Замовлення успішно створено (order_id)
