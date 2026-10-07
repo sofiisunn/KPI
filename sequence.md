@@ -32,7 +32,7 @@ sequenceDiagram
         OrderController->>Database: Запис трек-номера в таблицю Order
         OrderController-->>CheckoutPage: Повідомлення про успішне замовлення
 
-    else Недостатньо коштів на картці
+    else Помилка під час оплати
         PaymentService-->>OrderController: Повернення статусу (PaymentFailed)
         OrderController->>Database: cancelOrderRecord()
         OrderController-->>CheckoutPage: Повідомлення: "Помилка оплати"
