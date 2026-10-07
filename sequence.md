@@ -22,6 +22,7 @@ sequenceDiagram
     OrderController->>Database: createOrderRecord()
     Database-->>OrderController: Замовлення успішно створено (order_id)
     OrderController->>Database: recordItemsPrice()
+    Database-->>CheckoutPage: Ціни товарів успішно зафіксовано в базі
 
     alt Оплата успішна
         PaymentService-->>OrderController: Повернення статусу (PaymentSuccess)
