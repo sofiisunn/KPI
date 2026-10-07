@@ -26,7 +26,7 @@ sequenceDiagram
 
     alt Оплата успішна
         PaymentService-->>OrderController: Повернення статусу (PaymentSuccess)
-        PaymentService->>Database: updateOrderStatus("Paid")
+        OrderController->>Database: updateOrderStatus("Paid")
         
         OrderController->>DeliveryService: registerShipment(order_id)
         DeliveryService-->>OrderController: Повернення (tracking_number)
