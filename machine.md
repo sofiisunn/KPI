@@ -7,7 +7,7 @@ stateDiagram-v2
 
     Paying --> Paid : PaymentSuccess
     Paying --> PaymentError : PaymentFailed
-    PaymentError --> Draft : retryPayment()
+    PaymentError --> Paying : retryPayment()
 
     state Paid_Parallel_Processing {
         [*] --> fork_state : Запуск фонових процесів
