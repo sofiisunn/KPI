@@ -3,7 +3,7 @@ stateDiagram-v2
     [*] --> Draft : Клієнт натиснув кнопку "Оформити замовлення"
 
     Draft --> Validated : validateAddress()
-    Draft --> Paying : processPayment()
+    Validated --> Paying : processPayment()
 
     Paying --> Paid : PaymentSuccess
     Paying --> PaymentError : PaymentFailed
