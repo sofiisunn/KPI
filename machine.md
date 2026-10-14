@@ -10,7 +10,9 @@ stateDiagram-v2
 
     Paying --> Paid : PaymentSuccess
     Paying --> PaymentError : PaymentFailed
+
     PaymentError --> Paying : retryPayment()
+    PaymentError --> Rejected : cancelOrder()
 
     state check_call_needed <<choice>>
     Paid --> check_call_needed
@@ -19,6 +21,10 @@ stateDiagram-v2
     check_call_needed --> Paid_Parallel_Processing : [Автоматичне підтвердження]
     
     CallAwaiting --> Paid_Parallel_Processing : operatorConfirm()
+    CallAwaiting --> Refunding : operatorCancel() / Клієнт відмовився від замовлення
+
+    Refunding --> Refunded : refundSuccess()
+    Refunded --> [*]
 
     state Paid_Parallel_Processing {
         [*] --> fork_state : Запуск фонових процесів
@@ -34,4 +40,5 @@ stateDiagram-v2
 
     Paid_Parallel_Processing --> Shipped : Передача кур'єру
     Shipped --> [*] : Процес завершено
+    Rejected --> [*]
 ```
