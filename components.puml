@@ -14,6 +14,24 @@ package "Cosmetics Online Store (System Boundary)" {
   ' Зв'язок між UI та API через інтерфейс (provided & required)
   API -up- i_api
   UI ..> i_api : uses (HTTPS)
+
+  ' Шар 3: Бізнес-сервіси
+  component [Order Service] as OrderSvc
+  component [Inventory Service] as InvSvc
+  component [Integration Service] as IntSvc
+
+  interface "IOrderManagement" as i_order
+  interface "IInventoryControl" as i_inv
+  interface "IExternalIntegration" as i_int
+
+  OrderSvc -up- i_order
+  InvSvc -up- i_inv
+  IntSvc -up- i_int
+
+  API ..> i_order : uses
+  API ..> i_inv : uses
+  OrderSvc ..> i_int : uses
+  UI ..> i_inv : direct check (bypass API)
 }
 
 @enduml
