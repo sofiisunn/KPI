@@ -1,0 +1,19 @@
+@startuml
+top to bottom direction
+skinparam componentStyle uml2
+
+package "Cosmetics Online Store (System Boundary)" {
+  
+  ' Шар 1: Клієнтський інтерфейс
+  component [Web UI] as UI
+  
+  ' Шар 2: Шлюз входу
+  component [API Gateway] as API
+  interface "IOrderAPI" as i_api
+  
+  ' Зв'язок між UI та API через інтерфейс (provided & required)
+  API -up- i_api
+  UI ..> i_api : uses (HTTPS)
+}
+
+@enduml
