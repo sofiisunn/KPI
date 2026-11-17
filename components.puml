@@ -50,7 +50,7 @@ package "Cosmetics Online Store (System Boundary)" {
 component [Payment Gateway] as PayGw
 interface "IPaymentAPI" as i_pay
 PayGw -up- i_pay
-IntSvc ..> i_pay : uses
+p_pay ..> i_pay : HTTPS
   
 component [Delivery Service] as DelSvc
 interface "IDeliveryAPI" as i_del
