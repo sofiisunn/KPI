@@ -4,18 +4,14 @@ skinparam componentStyle uml2
 
 package "Cosmetics Online Store (System Boundary)" {
   
-  ' Шар 1: Клієнтський інтерфейс
   component [Web UI] as UI
   
-  ' Шар 2: Шлюз входу
   component [API Gateway] as API
   interface "IOrderAPI" as i_api
   
-  ' Зв'язок між UI та API через інтерфейс (provided & required)
   API -up- i_api
   UI ..> i_api : uses (HTTPS)
 
-  ' Шар 3: Бізнес-сервіси
   component [Order Service] as OrderSvc
   component [Inventory Service] as InvSvc
   component [Integration Service] as IntSvc
@@ -33,16 +29,19 @@ package "Cosmetics Online Store (System Boundary)" {
   OrderSvc ..> i_int : uses
   UI ..> i_inv : direct check (bypass API)
 
-  ' Шар 4: Доступ до даних
   component [Data Access] as DAL
   interface "IDataRepository" as i_dal
   DAL -up- i_dal
   OrderSvc ..> i_dal : uses
   InvSvc ..> i_dal : uses
 
-  ' Шар 5: База даних
   database "PostgreSQL" as DB
   DAL --> DB : SQL
+
+  component [Payment Gateway] as PayGw
+  interface "IPaymentAPI" as i_pay
+  PayGw -up- i_pay
+  IntSvc ..> i_pay : uses
 }
 
 @enduml
