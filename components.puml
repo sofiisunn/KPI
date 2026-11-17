@@ -36,7 +36,16 @@ package "Cosmetics Online Store (System Boundary)" {
 
   database "PostgreSQL" as DB
   DAL --> DB : SQL
-  }
+
+  portout "PaymentPort" as p_pay
+  portout "DeliveryPort" as p_del
+  portout "NotificationPort" as p_notif
+
+  IntSvc --> p_pay
+  IntSvc --> p_del
+  IntSvc --> p_notif
+
+}
 
 component [Payment Gateway] as PayGw
 interface "IPaymentAPI" as i_pay
@@ -46,12 +55,11 @@ IntSvc ..> i_pay : uses
 component [Delivery Service] as DelSvc
 interface "IDeliveryAPI" as i_del
 DelSvc -up- i_del
+p_del ..> i_del : HTTPS
     
 component [Notification Service] as NotifSvc
 interface "INotificationAPI" as i_notif
 NotifSvc -up- i_notif
+p_notif ..> i_notif : HTTPS
     
-OrderSvc ..> i_del : direct external call
-OrderSvc ..> i_notif : direct external call
-
 @enduml
