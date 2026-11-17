@@ -27,7 +27,6 @@ package "Cosmetics Online Store (System Boundary)" {
   API ..> i_order : uses
   API ..> i_inv : uses
   OrderSvc ..> i_int : uses
-  UI ..> i_inv : direct check (bypass API)
 
   component [Data Access] as DAL
   interface "IDataRepository" as i_dal
@@ -42,17 +41,17 @@ package "Cosmetics Online Store (System Boundary)" {
   interface "IPaymentAPI" as i_pay
   PayGw -up- i_pay
   IntSvc ..> i_pay : uses
-
+  
   component [Delivery Service] as DelSvc
   interface "IDeliveryAPI" as i_del
   DelSvc -up- i_del
-  
+    
   component [Notification Service] as NotifSvc
   interface "INotificationAPI" as i_notif
   NotifSvc -up- i_notif
-  
+    
   OrderSvc ..> i_del : direct external call
   OrderSvc ..> i_notif : direct external call
-}
+  }
 
 @enduml
