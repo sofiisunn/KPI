@@ -32,6 +32,17 @@ package "Cosmetics Online Store (System Boundary)" {
   API ..> i_inv : uses
   OrderSvc ..> i_int : uses
   UI ..> i_inv : direct check (bypass API)
+
+  ' Шар 4: Доступ до даних
+  component [Data Access] as DAL
+  interface "IDataRepository" as i_dal
+  DAL -up- i_dal
+  OrderSvc ..> i_dal : uses
+  InvSvc ..> i_dal : uses
+
+  ' Шар 5: База даних
+  database "PostgreSQL" as DB
+  DAL --> DB : SQL
 }
 
 @enduml
