@@ -1,0 +1,65 @@
+@startuml
+top to bottom direction
+skinparam componentStyle uml2
+
+package "Cosmetics Online Store (System Boundary)" {
+  
+  component [Web UI] as UI
+  
+  component [API Gateway] as API
+  interface "IOrderAPI" as i_api
+  
+  API -up- i_api
+  UI ..> i_api : uses (HTTPS)
+
+  component [Order Service] as OrderSvc
+  component [Inventory Service] as InvSvc
+  component [Integration Service] as IntSvc
+
+  interface "IOrderManagement" as i_order
+  interface "IInventoryControl" as i_inv
+  interface "IExternalIntegration" as i_int
+
+  OrderSvc -up- i_order
+  InvSvc -up- i_inv
+  IntSvc -up- i_int
+
+  API ..> i_order : uses
+  API ..> i_inv : uses
+  OrderSvc ..> i_int : uses
+
+  component [Data Access] as DAL
+  interface "IDataRepository" as i_dal
+  DAL -up- i_dal
+  OrderSvc ..> i_dal : uses
+  InvSvc ..> i_dal : uses
+
+  database "PostgreSQL" as DB
+  DAL --> DB : SQL
+
+  portout "PaymentPort" as p_pay
+  portout "DeliveryPort" as p_del
+  portout "NotificationPort" as p_notif
+
+  IntSvc --> p_pay
+  IntSvc --> p_del
+  IntSvc --> p_notif
+
+}
+
+component [Payment Gateway] as PayGw
+interface "IPaymentAPI" as i_pay
+PayGw -up- i_pay
+p_pay ..> i_pay : HTTPS
+  
+component [Delivery Service] as DelSvc
+interface "IDeliveryAPI" as i_del
+DelSvc -up- i_del
+p_del ..> i_del : HTTPS
+    
+component [Notification Service] as NotifSvc
+interface "INotificationAPI" as i_notif
+NotifSvc -up- i_notif
+p_notif ..> i_notif : HTTPS
+    
+@enduml
